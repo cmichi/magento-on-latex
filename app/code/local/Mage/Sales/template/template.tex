@@ -1,0 +1,97 @@
+% Magento on LaTeX Extension
+%
+% This is the template file used to generate the pdf-invoice.
+% 
+% @copyright  Copyright (c) 2010 Michael Mueller (http://micha.elmueller.net)
+% @license    LGPL
+% 
+
+\documentclass[DIN, pagenumber=false, parskip=half,%
+               fromalign=right, fromphone=true, fromfax=true,
+               fromrule=false]{scrlttr2}
+ 
+
+\usepackage{ngerman}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{textcomp}
+\usepackage{longtable}
+\usepackage{eurosym}
+
+\LoadLetterOption{template}
+
+
+\renewcommand*{\raggedsignature}{\raggedright} 
+
+\setkomavar{fromname}{Max Mustermann GmbH}
+\setkomavar{fromfax}{+49 (0) 12 34 / 56 78--90}
+\setkomavar{fromphone}{+49 (0) 12 34 / 56 78--90}
+\setkomavar{fromaddress}{Musterweg 7 \\ 12345 Musterstadt}
+\setkomavar{frombank}{Musterbank Stuttgart \\ BLZ: 123 456 78 \\ \\ Kontonummer: 123 456 789\\Sparkasse Musterstadt}
+
+\setkomavar{subject}[]{Ihre Bestellung bei www.your-webshop.de}
+%\setkomavar{yourmail}[]{Max Muster}
+\setkomavar{yourref}[Ihre Bestellung vom]{(Order:Date)}
+
+
+
+\firstfoot{
+	\parbox[t]{\textwidth}{\footnotesize 
+	
+	\begin{tabular}[t]{l@{}}
+		 \multicolumn{1}{@{}l@{}}{Firma:}\\ 
+		 Max Mustermann GmbH\\
+		 Musterweg 7, 12345 Musterstadt\\ \\
+		 Telefon: \usekomavar{fromphone} \\
+		 Fax: \usekomavar{fromfax} \\
+	\end{tabular}
+	 \hfill{}
+	 \begin{tabular}[t]{l@{}}
+		 \multicolumn{1}{@{}l@{}}{Rechtliche Informationen:}\\ 
+		Amtsgericht Stuttgart\\
+		Registernummer: HRB 12345\\ \\
+		
+		Geschäftsführer: Max Muster\\		
+		Ust.-ID-Nr.: DE123456789\\
+	 \end{tabular}
+	 \hfill{}
+	 \begin{tabular}[t]{l@{}}
+		 \multicolumn{1}{@{}l@{}}{\usekomavar*{frombank}:}\\ 
+		 \usekomavar{frombank} 
+	 \end{tabular} 
+ }}
+
+
+
+ 
+\begin{document}
+ 
+\begin{letter}{(Receiver:Name) \\ (Receiver:Street) \\ (Receiver:Zip) (Receiver:City)}
+
+\opening{Sehr geehrte Damen und Herren,}
+
+anbei erhalten Sie die Rechnung für Ihre Bestellung Nr. (Order:No). \\
+
+
+\begin{longtable}{p{2.5cm}p{6.5cm}p{2cm}p{2cm}p{2cm}}
+
+\hline 	
+Art. Nr. & Artikelbezeichnung & Stück & Einzelpreis & Gesamtpreis\\
+\hline 
+%(Order:ItemsStart)
+12345 & Verl"angerungsleitung -- 3 G 1,5 mm² 230V 25m -- 1 St"uck & 1 & 51,30 \euro{} & 51,30 \euro{}\\
+%(Order:ItemsEnd)
+\hline 
+\hline 
+\end{longtable}
+Gesamtsumme: (Order:TotalCosts)\\
+inkl. MwSt.: (Order:ExklSt)\\
+
+
+
+
+
+\closing{\\ Mit freundlichen Grüßen}
+\end{letter}
+ 
+\end{document}
