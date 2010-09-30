@@ -13,7 +13,9 @@
 		media/lateinvoice/
 */
 
-$whichTeXFilesToUse = array(
-	1 => 'privat',
-	2 => 'gewerblich'
+$latexInvoiceConfig = array(
+	'whichTeXFilesToUse' => array(
+		1 => 'privat',
+		2 => 'gewerblich'
+	)
 );
