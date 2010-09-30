@@ -1,0 +1,14 @@
+% Magento on LaTeX Extension
+%
+% This file provides information for the template.tex on 
+% how to position the footer.
+%
+% @copyright  Copyright (c) 2010 Michael Mueller (http://micha.elmueller.net)
+% @license    LGPL
+% 
+
+\ProvidesFile{template.loc}[]
+
+% firstfootvpos has to have more space to the bottom
+\@setplength{firstfootvpos}{\paperheight}
+\@addtoplength[-]{firstfootvpos}{30mm}
