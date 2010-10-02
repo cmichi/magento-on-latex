@@ -14,9 +14,11 @@ This also means that your invoices will stop looking poor and start looking tigh
 
 ## Motivation
 
-I was working a lot with LaTeX in the past months and since I had to create invoices for the Magento Shopsystem which fit to the german law (which is notso easy :) ) I decided to take the opportunity and write an extension for this.
+I was working a lot with LaTeX in the past months and since I had to create invoices  
+for the Magento Shopsystem which fit to the german law (which is not so easy :) )  
+I decided to take the opportunity and write an extension for this.
 
-Nearly none normal web server runs TeX out of the box, 
+Nearly none normal web server runs TeX out of the box,  
 but since it is really easy to install a TeX distribution like TexLive, this shouldn't be a problem if you own a root server.
 
 
