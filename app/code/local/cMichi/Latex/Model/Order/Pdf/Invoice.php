@@ -30,7 +30,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		error_reporting(E_ALL);
 		$this->init();
 
-		echo '<pre>';
+		//echo '<pre>';
 		foreach ($invoices as $invoice):
 			$order = $invoice->getOrder();
 			$data = $order['_origData:protected'];
@@ -43,7 +43,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			$markup = $this->substitute($markup, $shipping, 'Shipping', $storeId);			
 
 			//print_r($shipping);
-			print_r($order);
+			//print_r($order);
 
 			$substituteArray = $this->getAllKeyElements($markup, 'OrderItem');
 
@@ -65,7 +65,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 				$orderItem = $item->getOrderItem();
 				$orders .= $this->substitute($orderItemLine, $orderItem, 'OrderItem', $storeId);
 
-				print_r($orderItem);
+				//print_r($orderItem);
 			}
 
 
@@ -74,7 +74,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			$pos3 = strpos($markup, '%(OrderItems:End)') + strlen('%(OrderItems:End)');						
 			$markup = substr($markup, 0, $pos1) . $orders . substr($markup, $pos3, strlen($markup));			
 
-			echo '</pre>';
+			//echo '</pre>';
 		endforeach;
 
 		
@@ -118,8 +118,8 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			die('Error: Compiled LaTeX file ' . $this->compiledTexFile . ' is not existing!<br />'
 			 	. "<br /><br /><hr /><br /><br /><pre>$output</pre>" 
 				. "<br /><br /><hr /><br /><br /><pre>$markup</pre>");
-		else
-			die('exists!' . $this->compiledTexFile);
+#		else
+#			die('exists!' . $this->compiledTexFile);
 		
 	}
 
@@ -249,7 +249,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 
 		foreach ($substituteArray as $key):
 			$data = $dataObj->getData($key);
-			echo $key.'!<br />';
+			//echo $key.'!<br />';
 			
 
 			if (in_array($key, $this->config[$storeId]['dateFields'])):
