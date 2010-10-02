@@ -6,7 +6,8 @@ This means that it is very easy to modify your invoice template, so that it uses
 
 This also means that your invoices will stop looking poor and start looking tight :)
 
-
+  
+  
 **PLEASE NOTE: The extension is under heavy development and will not work out-of-the box!**
 
 
@@ -15,7 +16,7 @@ This also means that your invoices will stop looking poor and start looking tigh
 ## Motivation
 
 I was working a lot with LaTeX in the past months and since I had to create invoices  
-for the Magento Shopsystem which fit to the german law (which is not so easy :) )  
+for the Magento Shopsystem which fit to the german law - which is not so easy :).
 I decided to take the opportunity and write an extension for this.
 
 Nearly none normal web server runs TeX out of the box,  
