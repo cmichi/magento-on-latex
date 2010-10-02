@@ -10,12 +10,26 @@
 
 /*	****** EXAMPLE CONFIG  ******** 
 	The files you specifiy here have to be located at
-		media/lateinvoice/
+		media/latex/
 */
 
-$latexInvoiceConfig = array(
-	'whichTeXFilesToUse' => array(
-		1 => 'privat',
-		2 => 'gewerblich'
-	)
+/*
+$config = array(
+	1 => array(
+		'filename' => 'privat',
+		'currency' => '\euro{}',
+		'date' => 'd.m.Y'
+	),
+	2 => 'gewerblich'
+);
+*/
+
+
+$dateFields = array('created_at');
+$priceFields = array('base_total', 'subtotal', 'grand_total', 'original_price', 'row_total');
+$standardConfig = array(
+	'currency' => ' \euro{}',
+	'date' => 'd.m.Y',
+	'dateFields' => $dateFields,
+	'priceFields' => $priceFields	
 );
