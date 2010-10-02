@@ -12,7 +12,11 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 {
 	private $DS, $mediaDir, $extDir, $config, $outputDir, 
 			$filename, $texFile, $compiledTexFile, $tmpFolder;
-
+			
+	// either pdflatex has to be in your environment variable
+	// or you have to set the path here!
+	// Remember to use / (UNIX) or \ (Win)
+	private $pdflatexPath = '/usr/texbin/pdflatex';
 
 
 	/**
@@ -31,17 +35,19 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			$order = $invoice->getOrder();
 			$data = $order['_origData:protected'];
 			$shipping = $order->getShippingAddress();
+			$storeId = $order->getStoreId();
 
 			$markup = $this->getFittingTemplate($order);
 
 
-			$markup = $this->substitute($markup, $shipping, 'Shipping');			
+			$markup = $this->substitute($markup, $shipping, 'Shipping', $storeId);			
 
 			//print_r($shipping);
+			print_r($order);
 
 			$substituteArray = $this->getAllKeyElements($markup, 'OrderItem');
 
-			$markup = $this->substitute($markup, $order, 'Order');
+			$markup = $this->substitute($markup, $order, 'Order', $storeId);
 
 			// get everything between %(Order:ItemsStart) and %(Order:ItemsEnd) 
 			$pos1 = strpos($markup, '%(OrderItems:Start)');
@@ -57,7 +63,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			        continue;
 
 				$orderItem = $item->getOrderItem();
-				$orders .= $this->substitute($orderItemLine, $orderItem, 'OrderItem');
+				$orders .= $this->substitute($orderItemLine, $orderItem, 'OrderItem', $storeId);
 
 				print_r($orderItem);
 			}
@@ -98,8 +104,9 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		if (!file_exists($this->texFile))
 			die('not existing: ' . $this->texFile);
 
-		$cmd = '/usr/texbin/pdflatex -output-directory ' . $this->tmpFolder . ' ' . 
-				$this->tmpFolder . $this->filename . '.tex';
+		// example: $cmd = '/usr/texbin/pdflatex -output-directory $tmpFolder $tmpFodler $filename.tex
+		$cmd = $this->pdflatexPath . ' -output-directory ' . $this->tmpFolder . ' ' . 
+			   $this->tmpFolder . $this->filename . '.tex';
 		$output = shell_exec($cmd);								
 		
 		// remove all tmp files
@@ -129,19 +136,16 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		$DS = $this->DS;
 
 		$this->extDir 			 = Mage::getBaseDir('app') . $DS . 'code' . $DS . 'local' . $DS . 'cMichi';
-		$this->mediaDir 		 = Mage::getBaseDir('media') . $DS . 'latexinvoice';
-		$this->outputDir	  	 = Mage::getBaseDir('media') . $DS . 'latexinvoice' . $DS . 'tmp';
+		$this->mediaDir 		 = Mage::getBaseDir('media') . $DS . 'latex';
+		$this->outputDir	  	 = Mage::getBaseDir('media') . $DS . 'latex' . $DS . 'tmp';
 		$this->filename 		 = 'invoice_'.time();
 		$this->texFile			 = $this->outputDir . $DS . $this->filename . '.tex';
 		$this->compiledTexFile 	 = $this->outputDir . $DS . $this->filename . '.pdf';
-		$this->tmpFolder 		 = 'media' . $DS . 'latexinvoice' . $DS . 'tmp' . $DS;
+		$this->tmpFolder 		 = 'media' . $DS . 'latex' . $DS . 'tmp' . $DS;
 
 		//load config
 		require($this->extDir . '/Latex/etc/config.php');
-		if (isset($config)) 
-			$this->config = $config;
-		else
-			$this->config = $standardConfig;					
+		$this->config = $config;
 			
 		// is there a template.lco in tmp dir?
 		$lco = $this->outputDir . $DS . 'template.lco';
@@ -166,14 +170,14 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		
 		// is there a template specified in the config?
 		if (isset($this->config[$storeId])):
-			$templateFilename = $this->mediaDir . $DS . $this->config[$storeId] .  '.tex';
+			$templateFilename = $this->mediaDir . $DS . $this->config[$storeId]['filename'] .  '.tex';
 			if (file_exists($templateFilename)):
 				$markup = file_get_contents($templateFilename);
 			else:
 				die('Error: Template ' . $templateFilename . ' could not be found! Check config.php.');
 			endif;
 			
-		// else use media/latexinvoice/template.tex if available
+		// else use media/latex/template.tex if available
 		elseif (file_exists($this->mediaDir . $DS . 'template.tex')):
 			$markup = file_get_contents($this->mediaDir . $DS . 'template.tex');
 			
@@ -200,7 +204,10 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 				$markup = substr($markup, $pos1, strlen($markup));
 
 				$pos2 = strpos($markup, ')');
-				$keys[] = str_replace($prefix.':', '', substr($markup, 1, $pos2 - 1));
+				$key = str_replace($prefix.':', '', substr($markup, 1, $pos2 - 1));
+				// LaTeX has its problems with underscore ;)
+				$key = str_replace('-', '_', $key); 
+				$keys[] = $key;
 				$markup =  substr($markup, $pos2, strlen($markup));
 			endif;
 		} while ($pos1 != false);		
@@ -237,22 +244,26 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * @param $prefix The prefix used in the markup (Order, Shipping, OrderItem, ...)
 	 * @return String
 	 */
-	private function substitute($markup, $dataObj, $prefix) {
+	private function substitute($markup, $dataObj, $prefix, $storeId) {
 		$substituteArray = $this->getAllKeyElements($markup, $prefix);
 
 		foreach ($substituteArray as $key):
 			$data = $dataObj->getData($key);
+			echo $key.'!<br />';
+			
 
-			if (in_array($key, $this->config['dateFields'])):
+			if (in_array($key, $this->config[$storeId]['dateFields'])):
 				$date = $dataObj->getData($key);
-				$date = date($this->config['date'], strtotime($date)); 
-				$markup = str_replace("(Order:$key)", $date, $markup);
-			elseif (in_array($key, $this->config['priceFields'])):
-				$data = $data . $this->config['currency'];
+				$date = date($this->config[$storeId]['date'], strtotime($date)); 
+				$data = $date;
+			elseif (in_array($key, $this->config[$storeId]['priceFields'])):
+				$data = round($data, 2) . $this->config[$storeId]['currency'];
 			endif;
 			
 			$data = $this->replaceForTeX($data);
 			$markup = str_replace("($prefix:$key)", $data, $markup);
+			// to make sure that all keys are replaced, LaTeX has its problems with _
+			$markup = str_replace("($prefix:".str_replace('_', '-', $key).")", $data, $markup);
 		endforeach;
 
 		return $markup;

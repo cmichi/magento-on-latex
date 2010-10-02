@@ -8,28 +8,41 @@
  * @license    LGPL
  */
 
+//////// ******************** DONT TOUCH!!! ************************ ////////
+
+$dateFields = array('created_at');
+$priceFields = array('base_total', 'subtotal', 'grand_total', 'original_price', 'row_total', 'tax_amount');
+
+$config = array();
+$config['standard'] = array(
+	'currency' => ' \euro{}',
+	'date' => 'd.m.Y',
+	'dateFields' => $dateFields,
+	'priceFields' => $priceFields	
+);
+//////// ******************** DONT TOUCH!!! ************************ ////////
+
+
+
+
 /*	****** EXAMPLE CONFIG  ******** 
 	The files you specifiy here have to be located at
 		media/latex/
 */
 
-/*
-$config = array(
-	1 => array(
-		'filename' => 'privat',
-		'currency' => '\euro{}',
-		'date' => 'd.m.Y'
-	),
-	2 => 'gewerblich'
-);
-*/
 
-
-$dateFields = array('created_at');
-$priceFields = array('base_total', 'subtotal', 'grand_total', 'original_price', 'row_total');
-$standardConfig = array(
-	'currency' => ' \euro{}',
+$config[1] = array(
+	'filename' => 'privatkunde',
+	'currency' => '\euro{}',
 	'date' => 'd.m.Y',
 	'dateFields' => $dateFields,
-	'priceFields' => $priceFields	
+	'priceFields' => $priceFields			
+);
+
+$config[1] = array(
+	'filename' => 'gewerblich',
+	'currency' => '\euro{}',
+	'date' => 'd.m.Y',
+	'dateFields' => $dateFields,
+	'priceFields' => $priceFields			
 );
