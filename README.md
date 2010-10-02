@@ -16,3 +16,14 @@ I was working a lot with LaTeX in the past months and since I had to create invo
 Nearly none normal web server runs TeX out of the box. But since it is really easy to install a TeX distribution like TexLive, this shouldn't be a problem if you own a root server.
 
 
+## Templates
+
+Still under development!
+
+The extension will come with two LaTeX templates: 
+
+	* German invoice for consumers
+	* German invoice for retailers
+	* Very basic english invoice 
+
+You can modify the templates by copying them into /media/latextemplate/.
