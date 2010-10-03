@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+	<global>
+		<models>
+			<sales>
+				<rewrite>
+					<order_pdf_invoice>cMichi_Latex_Model_Order_Pdf_Invoice</order_pdf_invoice>
+				</rewrite>
+			</sales>
+		</models>
+	</global>
+</config>

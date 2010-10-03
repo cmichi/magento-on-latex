@@ -11,7 +11,7 @@
 class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abstract
 {
 	private $DS, $mediaDir, $extDir, $config, $outputDir, 
-		$filename, $texFile, $compiledTexFile, $tmpFolder;
+			$filename, $texFile, $compiledTexFile, $tmpFolder;
 
 	// either pdflatex has to be in your environment variable
 	// or you have to set the path here!
@@ -109,7 +109,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * @return 
 	 */
 	private function compileMarkup($markup)
-       	{
+	{
 		$DS = $this->DS;
 
 		if (!$handle = @fopen($this->texFile, "w"))
@@ -154,16 +154,12 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * @return 
 	 */
 	private function init()
-       	{
+	{
 		$ioObject = new Varien_Io_File();			
 		$this->DS = $ioObject->dirsep();
 		$DS = $this->DS;
 		
-<<<<<<< HEAD:app/code/local/cMichi/Latex/Model/Order/Pdf/Invoice.php
-		$this->extDir 			 = Mage::getBaseDir('app') . $DS . 'code' . $DS . 'local' . $DS . 'cMichi';
-=======
 		$this->extDir 			 = Mage::getBaseDir('app') . $DS . 'code' . $DS . 'local' . $DS . 'Cmichi';
->>>>>>> 08b5831b333cfd7c7759c3dbc5ca35a40fa1a745:app/code/local/Cmichi/Latex/Model/Order/Pdf/Invoice.php
 		$this->mediaDir 		 = Mage::getBaseDir('media') . $DS . 'latex';
 		$this->outputDir	  	 = Mage::getBaseDir('media') . $DS . 'latex' . $DS . 'tmp';
 		$this->filename 		 = 'invoice_'.time();
@@ -197,7 +193,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * @return 
 	 */
 	private function log($msg)
-       	{
+	{
 		if ($this->debug) 
 			echo "<pre>$msg</pre><br /><hr /><br />";
 	}
@@ -212,7 +208,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * @return String 
 	 */
 	private function getFittingTemplate($order)
-       	{
+	{
 		$DS = $this->DS;
 		$storeId = $order->getStoreId();
 
@@ -247,7 +243,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * @return Array
 	 */
 	private function getAllKeyElements($markup, $prefix)
-       	{
+	{
 		$keys = array();
 		do {
 			$pos1 = strpos($markup, "($prefix:");
@@ -275,7 +271,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * @return String
 	 */
 	private function replaceForTeX($string)
-       	{
+	{
 		$replace = array(
 			'-' => ' -- '
 		);
@@ -297,7 +293,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * @return String
 	 */
 	private function substitute($markup, $dataObj, $prefix, $storeId)
-       	{
+	{
 		$substituteArray = $this->getAllKeyElements($markup, $prefix);
 
 		foreach ($substituteArray as $key):
