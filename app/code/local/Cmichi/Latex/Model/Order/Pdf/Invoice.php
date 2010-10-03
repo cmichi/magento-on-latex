@@ -126,14 +126,14 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			die('not existing: ' . $this->texFile);
 
 		// example: $cmd = '/usr/texbin/pdflatex -output-directory $tmpFolder $tmpFodler $filename.tex
-		$cmd = $this->pdflatexPath . ' -output-directory ' . $this->tmpFolder . ' ' . 
-			$this->tmpFolder . $this->filename . '.tex';
+		$cmd = 	$this->pdflatexPath . ' -output-directory ' . $this->tmpFolder . ' ' . 
+				$this->tmpFolder . $this->filename . '.tex';
 		$output = shell_exec($cmd);								
 		$this->log($output);
 
 
 		// remove all tmp files
-		shell_exec('rm ' . $tmpFolder . $filename . '.tex');
+		shell_exec('rm ' . $this->tmpFolder . $this->filename . '.tex');
 		shell_exec('rm ' . $this->tmpFolder . $this->filename . '.aux');
 		shell_exec('rm ' . $this->tmpFolder . $this->filename . '.log');
 
