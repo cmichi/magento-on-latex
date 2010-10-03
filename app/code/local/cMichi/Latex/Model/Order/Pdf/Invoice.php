@@ -101,9 +101,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 */
 	private function compileMarkup($markup) {
 		$DS = $this->DS;
-		$this->texFile = '/srv/http/solartrick/media/latex/tmp/' . $this->filename.'.tex';
-		copy('/srv/http/solartrick/x/x.txt', $this->texFile);
-
+		//$this->texFile = '/srv/http/solartrick/media/latex/tmp/' . $this->filename.'.tex';
 
 		if (!$handle = @fopen($this->texFile, "w"))
 			die('Unable to OPEN '.$this->texFile.'! Check rights.');
@@ -151,12 +149,12 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		$this->DS = $ioObject->dirsep();
 		$DS = $this->DS;
 		
-		$this->extDir 			 = Mage::getBaseDir('app') . $DS . 'code' . $DS . 'local' . $DS . 'User';
+		$this->extDir 			 = Mage::getBaseDir('app') . $DS . 'code' . $DS . 'local' . $DS . 'cMichi';
 		$this->mediaDir 		 = Mage::getBaseDir('media') . $DS . 'latex';
 		$this->outputDir	  	 = Mage::getBaseDir('media') . $DS . 'latex' . $DS . 'tmp';
 		$this->filename 		 = 'invoice_'.time();
 		$this->texFile			 = $this->outputDir . $DS . $this->filename . '.tex';
-		$this->compiledTexFile	 	 = $this->outputDir . $DS . $this->filename . '.pdf';
+		$this->compiledTexFile	 = $this->outputDir . $DS . $this->filename . '.pdf';
 		$this->tmpFolder 		 = 'media' . $DS . 'latex' . $DS . 'tmp' . $DS;
 
 
