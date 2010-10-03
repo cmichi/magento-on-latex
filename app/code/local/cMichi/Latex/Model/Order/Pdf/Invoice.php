@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ALL);
 /**
  * Magento on LaTeX Extension
  *
@@ -11,12 +12,13 @@
 class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abstract
 {
 	private $DS, $mediaDir, $extDir, $config, $outputDir, 
-			$filename, $texFile, $compiledTexFile, $tmpFolder;
-			
+		$filename, $texFile, $compiledTexFile, $tmpFolder;
+
 	// either pdflatex has to be in your environment variable
 	// or you have to set the path here!
 	// Remember to use / (UNIX) or \ (Win)
-	private $pdflatexPath = '/usr/texbin/pdflatex';
+	#private $pdflatexPath = '/usr/texbin/pdflatex';
+	private $pdflatexPath = 'pdflatex';
 
 
 	/**
@@ -59,8 +61,8 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 
 			$orders = '';
 			foreach ($invoice->getAllItems() as $item){
-			    if ($item->getOrderItem()->getParentItem())
-			        continue;
+				if ($item->getOrderItem()->getParentItem())
+					continue;
 
 				$orderItem = $item->getOrderItem();
 				$orders .= $this->substitute($orderItemLine, $orderItem, 'OrderItem', $storeId);
@@ -77,7 +79,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			//echo '</pre>';
 		endforeach;
 
-		
+
 		$this->compileMarkup($markup);
 
 		// we have to return the content of the pdf
@@ -85,6 +87,9 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		$this->_setPdf($pdf);
 		$pdf = Zend_Pdf::load($this->compiledTexFile);
 
+		// remove the generated pdf
+		shell_exec('rm ' . $this->compiledTexFile);
+		
 		return $pdf;		
 	}
 
@@ -95,32 +100,43 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * @return void
 	 */
 	private function compileMarkup($markup) {
-	    if (!$handle = fopen($this->texFile, "w+"))
-	         die('Unable to OPEN '.$this->texFile.'! Check rights.');
+		$DS = $this->DS;
+		$this->texFile = '/srv/http/solartrick/media/latex/tmp/' . $this->filename.'.tex';
+		copy('/srv/http/solartrick/x/x.txt', $this->texFile);
 
-	    if (!fwrite($handle, $markup))
-	         die('Unable to WRITE '.$this->texFile.'! Check rights.');
+
+		if (!$handle = @fopen($this->texFile, "w"))
+			die('Unable to OPEN '.$this->texFile.'! Check rights.');
+
+
+		if (fwrite($handle, $markup) == FALSE)
+			#if (fwrite($handle, 'markup') == FALSE)
+			die('Unable to WRITE '.$this->texFile.'! Check rights.');
+
+		if (!fclose($handle))
+			die('cannot close file');
 
 		if (!file_exists($this->texFile))
 			die('not existing: ' . $this->texFile);
 
 		// example: $cmd = '/usr/texbin/pdflatex -output-directory $tmpFolder $tmpFodler $filename.tex
 		$cmd = $this->pdflatexPath . ' -output-directory ' . $this->tmpFolder . ' ' . 
-			   $this->tmpFolder . $this->filename . '.tex';
+			$this->tmpFolder . $this->filename . '.tex';
 		$output = shell_exec($cmd);								
-		
+
+
 		// remove all tmp files
-		#shell_exec('rm ' . $tmpFolder . $filename . '.tex');
+		shell_exec('rm ' . $tmpFolder . $filename . '.tex');
 		shell_exec('rm ' . $this->tmpFolder . $this->filename . '.aux');
 		shell_exec('rm ' . $this->tmpFolder . $this->filename . '.log');
 
 		if (!file_exists($this->compiledTexFile))
 			die('Error: Compiled LaTeX file ' . $this->compiledTexFile . ' is not existing!<br />'
-			 	. "<br /><br /><hr /><br /><br /><pre>$output</pre>" 
-				. "<br /><br /><hr /><br /><br /><pre>$markup</pre>");
-#		else
-#			die('exists!' . $this->compiledTexFile);
-		
+			. "<br /><br /><hr /><br /><br /><pre>$output</pre>" 
+			. "<br /><br /><hr /><br /><br /><pre>$markup</pre>");
+		#		else
+		#			die('exists!' . $this->compiledTexFile);
+
 	}
 
 
@@ -134,27 +150,33 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		$ioObject = new Varien_Io_File();			
 		$this->DS = $ioObject->dirsep();
 		$DS = $this->DS;
-
-		$this->extDir 			 = Mage::getBaseDir('app') . $DS . 'code' . $DS . 'local' . $DS . 'cMichi';
+		
+		$this->extDir 			 = Mage::getBaseDir('app') . $DS . 'code' . $DS . 'local' . $DS . 'User';
 		$this->mediaDir 		 = Mage::getBaseDir('media') . $DS . 'latex';
 		$this->outputDir	  	 = Mage::getBaseDir('media') . $DS . 'latex' . $DS . 'tmp';
 		$this->filename 		 = 'invoice_'.time();
 		$this->texFile			 = $this->outputDir . $DS . $this->filename . '.tex';
-		$this->compiledTexFile 	 = $this->outputDir . $DS . $this->filename . '.pdf';
+		$this->compiledTexFile	 	 = $this->outputDir . $DS . $this->filename . '.pdf';
 		$this->tmpFolder 		 = 'media' . $DS . 'latex' . $DS . 'tmp' . $DS;
+
 
 		//load config
 		require($this->extDir . '/Latex/etc/config.php');
 		$this->config = $config;
-			
+
 		// is there a template.lco in tmp dir?
 		$lco = $this->outputDir . $DS . 'template.lco';
-		if (!file_exists($lco))
-			shell_exec('cp ' . $this->mediaDir . $DS .'template.lco '.$lco);
-			
+		if (!file_exists($lco) && file_exists($this->mediaDir . $DS . 'template.lco')):
+			copy($this->mediaDir . $DS .'template.lco', $lco);
+		elseif (!file_exists($lco) && file_exists($this->extDir . $DS . 'Latex' . $DS . 'templates' . $DS . 'template.lco')):
+			copy($this->extDir . $DS . 'Latex' . $DS . 'templates' . $DS .'template.lco', $lco);
+		elseif (!file_exists($lco)):
+			die('There is no template.lco available! Copy it to /media/latex/');
+		endif;
+
 		return;
 	}
-	
+
 
 
 	/**
@@ -167,25 +189,27 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	private function getFittingTemplate($order) {		
 		$DS = $this->DS;
 		$storeId = $order->getStoreId();
-		
+
 		// is there a template specified in the config?
 		if (isset($this->config[$storeId])):
 			$templateFilename = $this->mediaDir . $DS . $this->config[$storeId]['filename'] .  '.tex';
-			if (file_exists($templateFilename)):
-				$markup = file_get_contents($templateFilename);
-			else:
-				die('Error: Template ' . $templateFilename . ' could not be found! Check config.php.');
-			endif;
-			
+		if (file_exists($templateFilename)):
+			$markup = file_get_contents($templateFilename);
+		else:
+			die('Error: Template ' . $templateFilename . ' could not be found! Check config.php.');
+		endif;
+
 		// else use media/latex/template.tex if available
 		elseif (file_exists($this->mediaDir . $DS . 'template.tex')):
 			$markup = file_get_contents($this->mediaDir . $DS . 'template.tex');
-			
+
 		// else use the one delivered with the extension
 		else:
-			$markup = file_get_contents($this->extDir . $DS . 'templates' . $DS .'template.tex');
+			$path = $this->extDir .$DS .'Latex' . $DS . 'templates' . $DS .'template.tex';
+			$markup = file_get_contents($path);
 		endif;
-			
+
+
 		return $markup;
 	}
 
@@ -211,12 +235,12 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 				$markup =  substr($markup, $pos2, strlen($markup));
 			endif;
 		} while ($pos1 != false);		
-		
+
 		return $keys;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Make a typographic high quality LaTeX string from this markup.
 	 *
@@ -227,10 +251,10 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		$replace = array(
 			'-' => ' -- '
 		);
-		
+
 		foreach ($replace as $from => $to)
 			$string = str_replace($from, $to, $string);
-		
+
 		return $string;
 	}
 
@@ -250,7 +274,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		foreach ($substituteArray as $key):
 			$data = $dataObj->getData($key);
 			//echo $key.'!<br />';
-			
+
 
 			if (in_array($key, $this->config[$storeId]['dateFields'])):
 				$date = $dataObj->getData($key);
@@ -259,7 +283,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			elseif (in_array($key, $this->config[$storeId]['priceFields'])):
 				$data = round($data, 2) . $this->config[$storeId]['currency'];
 			endif;
-			
+
 			$data = $this->replaceForTeX($data);
 			$markup = str_replace("($prefix:$key)", $data, $markup);
 			// to make sure that all keys are replaced, LaTeX has its problems with _
@@ -270,7 +294,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	}
 
 
-		
+
 }
 
 
