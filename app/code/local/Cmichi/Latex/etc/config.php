@@ -11,7 +11,8 @@
 //////// ******************** DONT TOUCH - STARTING ************************ ////////
 
 $dateFields = array('created_at');
-$priceFields = array('base_total', 'subtotal', 'grand_total', 'original_price', 'row_total', 'tax_amount');
+$priceFields = array('base_total', 'subtotal', 'grand_total', 'original_price', 'row_total', 
+'tax_amount', 'price_incl_tax', 'row_price_incl_tax');
 
 $config = array();
 $config['standard'] = array(
@@ -33,7 +34,7 @@ $config['standard'] = array(
 
 $config[1] = array(
 	'filename' => 'privatkunde',
-	'currency' => '\euro{}',
+	'currency' => ' \euro{}',
 	'date' => 'd.m.Y',
 	'dateFields' => $dateFields,
 	'priceFields' => $priceFields			
@@ -41,7 +42,7 @@ $config[1] = array(
 
 $config[2] = array(
 	'filename' => 'gewerblich',
-	'currency' => '\euro{}',
+	'currency' => ' \euro{}',
 	'date' => 'd.m.Y',
 	'dateFields' => $dateFields,
 	'priceFields' => $priceFields			
