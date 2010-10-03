@@ -1,5 +1,4 @@
 <?php
-error_reporting(E_ALL);
 /**
  * Magento on LaTeX Extension
  *
@@ -9,7 +8,7 @@ error_reporting(E_ALL);
  * @license    LGPL
  */
 
-class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abstract
+class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abstract
 {
 	private $DS, $mediaDir, $extDir, $config, $outputDir, 
 		$filename, $texFile, $compiledTexFile, $tmpFolder;
@@ -21,6 +20,11 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	private $pdflatexPath = 'pdflatex';
 
 
+	// if set to true the output is shown and no pdf is sent,
+	// see function getPdf() for details
+	private $debug = false;
+
+
 	/**
 	 * Main function! Renders the pdf!
 	 *
@@ -29,7 +33,6 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 */	
 	public function getPdf($invoices = array())
 	{
-		error_reporting(E_ALL);
 		$this->init();
 
 		//echo '<pre>';
@@ -81,6 +84,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 
 
 		$this->compileMarkup($markup);
+		$this->log($markup);
 
 		// we have to return the content of the pdf
 		$pdf = new Zend_Pdf();
@@ -90,25 +94,29 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		// remove the generated pdf
 		shell_exec('rm ' . $this->compiledTexFile);
 		
-		return $pdf;		
+		if ($this->debug == true)		
+			die('end reached');
+		else
+			return $pdf;		
+
 	}
 
 
 	/**
 	 * Write markup to TeX file and compile it.
 	 *
-	 * @return void
+	 * @param $markup The TeX code
+	 * @return 
 	 */
-	private function compileMarkup($markup) {
+	private function compileMarkup($markup)
+       	{
 		$DS = $this->DS;
-		//$this->texFile = '/srv/http/solartrick/media/latex/tmp/' . $this->filename.'.tex';
 
 		if (!$handle = @fopen($this->texFile, "w"))
 			die('Unable to OPEN '.$this->texFile.'! Check rights.');
 
 
-		if (fwrite($handle, $markup) == FALSE)
-			#if (fwrite($handle, 'markup') == FALSE)
+		if (fwrite($handle, $markup) == false)
 			die('Unable to WRITE '.$this->texFile.'! Check rights.');
 
 		if (!fclose($handle))
@@ -121,6 +129,7 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		$cmd = $this->pdflatexPath . ' -output-directory ' . $this->tmpFolder . ' ' . 
 			$this->tmpFolder . $this->filename . '.tex';
 		$output = shell_exec($cmd);								
+		$this->log($output);
 
 
 		// remove all tmp files
@@ -142,21 +151,25 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	/**
 	 * Called to initialise all vars & load config.
 	 *
-	 * @return void
+	 * @return 
 	 */
-	private function init() {
+	private function init()
+       	{
 		$ioObject = new Varien_Io_File();			
 		$this->DS = $ioObject->dirsep();
 		$DS = $this->DS;
 		
+<<<<<<< HEAD:app/code/local/cMichi/Latex/Model/Order/Pdf/Invoice.php
 		$this->extDir 			 = Mage::getBaseDir('app') . $DS . 'code' . $DS . 'local' . $DS . 'cMichi';
+=======
+		$this->extDir 			 = Mage::getBaseDir('app') . $DS . 'code' . $DS . 'local' . $DS . 'Cmichi';
+>>>>>>> 08b5831b333cfd7c7759c3dbc5ca35a40fa1a745:app/code/local/Cmichi/Latex/Model/Order/Pdf/Invoice.php
 		$this->mediaDir 		 = Mage::getBaseDir('media') . $DS . 'latex';
 		$this->outputDir	  	 = Mage::getBaseDir('media') . $DS . 'latex' . $DS . 'tmp';
 		$this->filename 		 = 'invoice_'.time();
 		$this->texFile			 = $this->outputDir . $DS . $this->filename . '.tex';
 		$this->compiledTexFile	 = $this->outputDir . $DS . $this->filename . '.pdf';
 		$this->tmpFolder 		 = 'media' . $DS . 'latex' . $DS . 'tmp' . $DS;
-
 
 		//load config
 		require($this->extDir . '/Latex/etc/config.php');
@@ -171,8 +184,22 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		elseif (!file_exists($lco)):
 			die('There is no template.lco available! Copy it to /media/latex/');
 		endif;
-
+		
 		return;
+	}
+
+
+
+	/**
+	 * Prints log message if debug mode is on.
+	 *
+	 * @param $msg
+	 * @return 
+	 */
+	private function log($msg)
+       	{
+		if ($this->debug) 
+			echo "<pre>$msg</pre><br /><hr /><br />";
 	}
 
 
@@ -181,10 +208,11 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * Find the fitting template  for this store,
 	 * return it's markup content.
 	 *
-	 * @param order
+	 * @param $order
 	 * @return String 
 	 */
-	private function getFittingTemplate($order) {		
+	private function getFittingTemplate($order)
+       	{
 		$DS = $this->DS;
 		$storeId = $order->getStoreId();
 
@@ -218,7 +246,8 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 *
 	 * @return Array
 	 */
-	private function getAllKeyElements($markup, $prefix) {
+	private function getAllKeyElements($markup, $prefix)
+       	{
 		$keys = array();
 		do {
 			$pos1 = strpos($markup, "($prefix:");
@@ -245,7 +274,8 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * @param $string 
 	 * @return String
 	 */
-	private function replaceForTeX($string) {
+	private function replaceForTeX($string)
+       	{
 		$replace = array(
 			'-' => ' -- '
 		);
@@ -266,7 +296,8 @@ class cMichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 * @param $prefix The prefix used in the markup (Order, Shipping, OrderItem, ...)
 	 * @return String
 	 */
-	private function substitute($markup, $dataObj, $prefix, $storeId) {
+	private function substitute($markup, $dataObj, $prefix, $storeId)
+       	{
 		$substituteArray = $this->getAllKeyElements($markup, $prefix);
 
 		foreach ($substituteArray as $key):

@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <config>
     <modules>
-        <cMichi_Latex>
+        <Cmichi_Latex>
             <active>true</active>
             <codePool>local</codePool>
-        </cMichi_Latex>
+        </Cmichi_Latex>
     </modules>
 </config>
