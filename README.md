@@ -22,9 +22,10 @@ this shouldn't be a problem if you own a root server.
 
 ## Installation
 
-I am working on a real extension package, but till that is done  
+I am working on an extension package for the Mage installer, but until this is done  
 you have to download the package and place the directories in you magento folder.
 
+For installation problems see the wiki: [http://github.com/cMichi/magento-on-latex/wiki/Installation](http://github.com/cMichi/magento-on-latex/wiki/Installation).
 
 
 ## Templates
