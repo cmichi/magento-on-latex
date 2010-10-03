@@ -16,8 +16,8 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	// either pdflatex has to be in your environment variable
 	// or you have to set the path here!
 	// Remember to use / (UNIX) or \ (Win)
-	#private $pdflatexPath = '/usr/texbin/pdflatex';
-	private $pdflatexPath = 'pdflatex';
+	private $pdflatexPath = '/usr/texbin/pdflatex';
+	#private $pdflatexPath = 'pdflatex';
 
 
 	// if set to true the output is shown and no pdf is sent,
@@ -63,14 +63,27 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 
 
 			$orders = '';
-			foreach ($invoice->getAllItems() as $item){
-				if ($item->getOrderItem()->getParentItem())
+			foreach ($invoice->getAllItems() as $item) {
+				$orderItem = $item->getOrderItem();
+				$this->log($orderItem);
+				
+				/*
+				echo '<pre>';
+				print_r($item->getQty().'<br /><br />');
+				print_r($orderItem->getOriginalPrice());
+				print_r($orderItem->getTaxAmount() + $orderItem->getRowTotal());
+				echo '</pre>';
+				
+//				print_r($item->getData());
+				die('a');
+				$this->log($item);
+								*/
+				if ($orderItem->getParentItem())
 					continue;
 
-				$orderItem = $item->getOrderItem();
 				$orders .= $this->substitute($orderItemLine, $orderItem, 'OrderItem', $storeId);
 
-				$this->log($orderItem);
+//				$this->log($orderItem);
 			}
 
 
@@ -92,7 +105,8 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		$pdf = Zend_Pdf::load($this->compiledTexFile);
 
 		// remove the generated pdf
-		shell_exec('rm ' . $this->compiledTexFile);
+		if ($this->debug == false)		
+			shell_exec('rm ' . $this->compiledTexFile);
 		
 		if ($this->debug == true)		
 			die('end reached');
@@ -133,7 +147,8 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 
 
 		// remove all tmp files
-		shell_exec('rm ' . $this->tmpFolder . $this->filename . '.tex');
+		if ($this->debug == false)
+			shell_exec('rm ' . $this->tmpFolder . $this->filename . '.tex');
 		shell_exec('rm ' . $this->tmpFolder . $this->filename . '.aux');
 		shell_exec('rm ' . $this->tmpFolder . $this->filename . '.log');
 
@@ -303,16 +318,25 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			$data = $dataObj->getData($key);
 			//echo $key.'!<br />';
 
-
 			if (in_array($key, $this->config[$storeId]['dateFields'])):
 				$date = $dataObj->getData($key);
 				$date = date($this->config[$storeId]['date'], strtotime($date)); 
 				$data = $date;
-			elseif (in_array($key, $this->config[$storeId]['priceFields'])):
-				$data = round($data, 2) . $this->config[$storeId]['currency'];
 			elseif ($key == 'qty_invoiced'):
 				$data = round($data, 0);
+			elseif ($key == 'price_incl_tax'):
+				// currently Magento doesn't support this natively
+				$data = ($dataObj->getTaxAmount() + $dataObj->getRowTotal()) / $dataObj->getQtyInvoiced();
+				$data = $this->roundPrice($data);				
+			elseif ($key == 'row_price_incl_tax'):
+				// currently Magento doesn't support this natively
+				$data = $dataObj->getTaxAmount() + $dataObj->getRowTotal();
+				$data = $this->roundPrice($data);
 			endif;
+
+			// this has to be after the checks! 
+			if (in_array($key, $this->config[$storeId]['priceFields']))
+				$data = $this->roundPrice($data) . $this->config[$storeId]['currency'];
 
 			$data = $this->replaceForTeX($data);
 			$markup = str_replace("($prefix:$key)", $data, $markup);
@@ -324,6 +348,14 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	}
 
 
+	/**
+	 * Rounds the price.
+	 *
+	 * @return Price, 2 decimal digits
+	 */
+	private function roundPrice($p) {
+		return number_format($p, 2, null, '');		
+	}
 
 }
 
