@@ -8,7 +8,7 @@
  * @license    LGPL
  */
 
-//////// ******************** DONT TOUCH!!! ************************ ////////
+//////// ******************** DONT TOUCH - STARTING ************************ ////////
 
 $dateFields = array('created_at');
 $priceFields = array('base_total', 'subtotal', 'grand_total', 'original_price', 'row_total', 'tax_amount');
@@ -20,7 +20,7 @@ $config['standard'] = array(
 	'dateFields' => $dateFields,
 	'priceFields' => $priceFields	
 );
-//////// ******************** DONT TOUCH!!! ************************ ////////
+//////// ******************** DONT TOUCH - ENDING   ************************ ////////
 
 
 
@@ -39,7 +39,7 @@ $config[1] = array(
 	'priceFields' => $priceFields			
 );
 
-$config[1] = array(
+$config[2] = array(
 	'filename' => 'gewerblich',
 	'currency' => '\euro{}',
 	'date' => 'd.m.Y',

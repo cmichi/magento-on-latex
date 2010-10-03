@@ -22,7 +22,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 
 	// if set to true the output is shown and no pdf is sent,
 	// see function getPdf() for details
-	private $debug = false;
+	private $debug = true;
 
 
 	/**
@@ -70,7 +70,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 				$orderItem = $item->getOrderItem();
 				$orders .= $this->substitute($orderItemLine, $orderItem, 'OrderItem', $storeId);
 
-				//print_r($orderItem);
+				$this->log($orderItem);
 			}
 
 
@@ -194,8 +194,11 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 */
 	private function log($msg)
 	{
-		if ($this->debug) 
-			echo "<pre>$msg</pre><br /><hr /><br />";
+		if ($this->debug == true): 
+			echo '<pre>';
+			print_r($msg);
+			echo '</pre><br /><hr /><br />';
+		endif;
 	}
 
 
@@ -307,6 +310,8 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 				$data = $date;
 			elseif (in_array($key, $this->config[$storeId]['priceFields'])):
 				$data = round($data, 2) . $this->config[$storeId]['currency'];
+			elseif ($key == 'qty_invoiced'):
+				$data = round($data, 0);
 			endif;
 
 			$data = $this->replaceForTeX($data);
