@@ -35,15 +35,11 @@ $config['standard'] = array(
 $config[1] = array(
 	'filename' => 'privatkunde',
 	'currency' => ' \euro{}',
-	'date' => 'd.m.Y',
-	'dateFields' => $dateFields,
-	'priceFields' => $priceFields			
+	'date' => 'd.m.Y'
 );
 
 $config[2] = array(
 	'filename' => 'gewerblich',
 	'currency' => ' \euro{}',
-	'date' => 'd.m.Y',
-	'dateFields' => $dateFields,
-	'priceFields' => $priceFields			
+	'date' => 'd.m.Y'
 );
