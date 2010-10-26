@@ -10,8 +10,8 @@
 
 class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Abstract
 {
-	private $DS, $mediaDir, $extDir, $config, $outputDir, 
-			$filename, $texFile, $compiledTexFile, $tmpFolder;
+	private $mediaDir, $extDir, $config, $outputDir, 
+		$filename, $texFile, $compiledTexFile, $tmpFolder;
 
 	// either pdflatex has to be in your environment variable
 	// or you have to set the path here!
@@ -124,8 +124,6 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 */
 	private function compileMarkup($markup)
 	{
-		$DS = $this->DS;
-
 		if (!$handle = @fopen($this->texFile, "w"))
 			die('Unable to OPEN '.$this->texFile.'! Check rights.');
 
@@ -171,27 +169,25 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	private function init()
 	{
 		$ioObject = new Varien_Io_File();			
-		$this->DS = $ioObject->dirsep();
-		$DS = $this->DS;
 		
-		$this->extDir 			 = Mage::getBaseDir('app') . $DS . 'code' . $DS . 'local' . $DS . 'Cmichi';
-		$this->mediaDir 		 = Mage::getBaseDir('media') . $DS . 'latex';
-		$this->outputDir	  	 = Mage::getBaseDir('media') . $DS . 'latex' . $DS . 'tmp';
+		$this->extDir 			 = Mage::getBaseDir('app') . DS . 'code' . DS . 'local' . DS . 'Cmichi';
+		$this->mediaDir 		 = Mage::getBaseDir('media') . DS . 'latex';
+		$this->outputDir	  	 = Mage::getBaseDir('media') . DS . 'latex' . DS . 'tmp';
 		$this->filename 		 = 'invoice_'.time();
-		$this->texFile			 = $this->outputDir . $DS . $this->filename . '.tex';
-		$this->compiledTexFile	 = $this->outputDir . $DS . $this->filename . '.pdf';
-		$this->tmpFolder 		 = 'media' . $DS . 'latex' . $DS . 'tmp' . $DS;
+		$this->texFile			 = $this->outputDir . DS . $this->filename . '.tex';
+		$this->compiledTexFile	 = $this->outputDir . DS . $this->filename . '.pdf';
+		$this->tmpFolder 		 = 'media' . DS . 'latex' . DS . 'tmp' . DS;
 
 		//load config
 		require($this->extDir . '/Latex/etc/config.php');
 		$this->config = $config;
 
 		// is there a template.lco in tmp dir?
-		$lco = $this->outputDir . $DS . 'template.lco';
-		if (!file_exists($lco) && file_exists($this->mediaDir . $DS . 'template.lco')):
-			copy($this->mediaDir . $DS .'template.lco', $lco);
-		elseif (!file_exists($lco) && file_exists($this->extDir . $DS . 'Latex' . $DS . 'templates' . $DS . 'template.lco')):
-			copy($this->extDir . $DS . 'Latex' . $DS . 'templates' . $DS .'template.lco', $lco);
+		$lco = $this->outputDir . DS . 'template.lco';
+		if (!file_exists($lco) && file_exists($this->mediaDir . DS . 'template.lco')):
+			copy($this->mediaDir . DS .'template.lco', $lco);
+		elseif (!file_exists($lco) && file_exists($this->extDir . DS . 'Latex' . DS . 'templates' . DS . 'template.lco')):
+			copy($this->extDir . DS . 'Latex' . DS . 'templates' . DS .'template.lco', $lco);
 		elseif (!file_exists($lco)):
 			die('There is no template.lco available! Copy it to /media/latex/');
 		endif;
@@ -227,12 +223,11 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	 */
 	private function getFittingTemplate($order)
 	{
-		$DS = $this->DS;
 		$storeId = $order->getStoreId();
 
 		// is there a template specified in the config?
 		if (isset($this->config[$storeId])):
-			$templateFilename = $this->mediaDir . $DS . $this->config[$storeId]['filename'] .  '.tex';
+			$templateFilename = $this->mediaDir . DS . $this->config[$storeId]['filename'] .  '.tex';
 		if (file_exists($templateFilename)):
 			$markup = file_get_contents($templateFilename);
 		else:
@@ -240,12 +235,12 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		endif;
 
 		// else use media/latex/template.tex if available
-		elseif (file_exists($this->mediaDir . $DS . 'template.tex')):
-			$markup = file_get_contents($this->mediaDir . $DS . 'template.tex');
+		elseif (file_exists($this->mediaDir . DS . 'template.tex')):
+			$markup = file_get_contents($this->mediaDir . DS . 'template.tex');
 
 		// else use the one delivered with the extension
 		else:
-			$path = $this->extDir .$DS .'Latex' . $DS . 'templates' . $DS .'template.tex';
+			$path = $this->extDir .DS .'Latex' . DS . 'templates' . DS .'template.tex';
 			$markup = file_get_contents($path);
 		endif;
 
