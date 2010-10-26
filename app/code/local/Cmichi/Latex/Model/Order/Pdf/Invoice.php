@@ -137,6 +137,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		// remove all tmp files
 		if ($this->debug == false)
 			shell_exec('rm ' . $this->tmpFolder . $this->filename . '.tex');
+
 		shell_exec('rm ' . $this->tmpFolder . $this->filename . '.aux');
 		shell_exec('rm ' . $this->tmpFolder . $this->filename . '.log');
 
