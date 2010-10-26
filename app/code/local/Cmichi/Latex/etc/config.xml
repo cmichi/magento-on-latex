@@ -4,7 +4,7 @@
 		<models>
 			<sales>
 				<rewrite>
-					<order_pdf_invoice>cMichi_Latex_Model_Order_Pdf_Invoice</order_pdf_invoice>
+					<order_pdf_invoice>Cmichi_Latex_Model_Order_Pdf_Invoice</order_pdf_invoice>
 				</rewrite>
 			</sales>
 		</models>
