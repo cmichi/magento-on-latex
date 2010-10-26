@@ -66,24 +66,13 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			foreach ($invoice->getAllItems() as $item) {
 				$orderItem = $item->getOrderItem();
 				$this->log($orderItem);
-				
-				/*
-				echo '<pre>';
-				print_r($item->getQty().'<br /><br />');
-				print_r($orderItem->getOriginalPrice());
-				print_r($orderItem->getTaxAmount() + $orderItem->getRowTotal());
-				echo '</pre>';
-				
-//				print_r($item->getData());
-				die('a');
-				$this->log($item);
-								*/
+
 				if ($orderItem->getParentItem())
 					continue;
 
 				$orders .= $this->substitute($orderItemLine, $orderItem, 'OrderItem', $storeId);
-
-//				$this->log($orderItem);
+				
+				$this->log($orderItem);
 			}
 
 
@@ -114,6 +103,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			return $pdf;		
 
 	}
+
 
 
 	/**
@@ -313,9 +303,9 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			$data = $dataObj->getData($key);
 			//echo $key.'!<br />';
 
-			if (in_array($key, $this->config[$storeId]['dateFields'])):
+			if (in_array($key, $this->config['standard']['dateFields'])):
 				$date = $dataObj->getData($key);
-				$date = date($this->config[$storeId]['date'], strtotime($date)); 
+				$date = date($this->config['standard']['date'], strtotime($date)); 
 				$data = $date;
 			elseif ($key == 'qty_invoiced'):
 				$data = round($data, 0);
@@ -330,8 +320,8 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			endif;
 
 			// this has to be after the checks! 
-			if (in_array($key, $this->config[$storeId]['priceFields']))
-				$data = $this->roundPrice($data) . $this->config[$storeId]['currency'];
+			if (isset($this->config['standard']) && in_array($key, $this->config['standard']['priceFields']))
+				$data = $this->roundPrice($data) . $this->config['standard']['currency'];
 
 			$data = $this->replaceForTeX($data);
 			$markup = str_replace("($prefix:$key)", $data, $markup);
@@ -341,6 +331,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 
 		return $markup;
 	}
+
 
 
 	/**
