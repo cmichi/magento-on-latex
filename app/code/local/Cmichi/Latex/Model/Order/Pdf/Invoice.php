@@ -22,7 +22,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 
 	// if set to true the output is shown and no pdf is sent,
 	// see function getPdf() for details
-	private $debug = false;
+	private $debug = true;
 
 
 	/**
@@ -35,7 +35,6 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	{
 		$this->init();
 
-		//echo '<pre>';
 		foreach ($invoices as $invoice):
 			$order = $invoice->getOrder();
 			$data = $order['_origData:protected'];
@@ -44,11 +43,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 
 			$markup = $this->getFittingTemplate($order);
 
-
 			$markup = $this->substitute($markup, $shipping, 'Shipping', $storeId);			
-
-			//print_r($shipping);
-			//print_r($order);
 
 			$substituteArray = $this->getAllKeyElements($markup, 'OrderItem');
 
@@ -65,14 +60,12 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			$orders = '';
 			foreach ($invoice->getAllItems() as $item) {
 				$orderItem = $item->getOrderItem();
-				$this->log($orderItem);
+				//$this->log($orderItem);
 
 				if ($orderItem->getParentItem())
 					continue;
 
 				$orders .= $this->substitute($orderItemLine, $orderItem, 'OrderItem', $storeId);
-				
-				$this->log($orderItem);
 			}
 
 
@@ -80,8 +73,6 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			$pos1 = strpos($markup, '%(OrderItems:Start)');
 			$pos3 = strpos($markup, '%(OrderItems:End)') + strlen('%(OrderItems:End)');						
 			$markup = substr($markup, 0, $pos1) . $orders . substr($markup, $pos3, strlen($markup));			
-
-			//echo '</pre>';
 		endforeach;
 
 
@@ -130,6 +121,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		// example: $cmd = '/usr/texbin/pdflatex -output-directory $tmpFolder $tmpFodler $filename.tex
 		$cmd = 	$this->pdflatexPath . ' -output-directory ' . $this->tmpFolder . ' ' . 
 				$this->tmpFolder . $this->filename . '.tex';
+		$this->log('executing: ' . $cmd);
 		$output = shell_exec($cmd);								
 		$this->log($output);
 
@@ -145,9 +137,6 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 			die('Error: Compiled LaTeX file ' . $this->compiledTexFile . ' is not existing!<br />'
 			. "<br /><br /><hr /><br /><br /><pre>$output</pre>" 
 			. "<br /><br /><hr /><br /><br /><pre>$markup</pre>");
-		#		else
-		#			die('exists!' . $this->compiledTexFile);
-
 	}
 
 
