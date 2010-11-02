@@ -6,6 +6,11 @@
 % @license    LGPL
 % 
 
+% This is necessary, so that the compiled PDF-files are PDF-1.4,
+% Zend_Pdf can't handle versions higher than that
+\pdfminorversion=4
+
+
 \documentclass[DIN, pagenumber=false, parskip=half,%
                fromalign=right, fromphone=true, fromfax=true,
                fromrule=false]{scrlttr2}
