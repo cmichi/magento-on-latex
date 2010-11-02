@@ -81,7 +81,9 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 		$this->log($markup);
 
 		// we have to return the content of the pdf
-		$pdf = Zend_Pdf::load($this->compiledTexFile);
+		$pdf = file_get_contents($this->compiledTexFile);
+		$pdf = Zend_Pdf::parse($pdf);
+		#$pdf = Zend_Pdf::load($this->compiledTexFile);
 
 		// remove the generated pdf
 		if ($this->debug == false)		
