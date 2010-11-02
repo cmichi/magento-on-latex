@@ -1,0 +1,159 @@
+% /srv/http/.texlive/texmf-var/fonts/map/dvips/updmap/download35.map: maintained by the script updmap.
+%   Don't change this file directly. Edit texmf/web2c/updmap.cfg
+%   and run updmap to recreate this file.
+% A log of the updmap run that has created this file is available here:
+%   /srv/http/.texlive/texmf-var/web2c/updmap.log
+cob NimbusMonL-Bold "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <ucrb8a.pfb
+cobo NimbusMonL-BoldObli "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <ucrbo8a.pfb
+com NimbusMonL-Regu "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <ucrr8a.pfb
+coo NimbusMonL-ReguObli "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <ucrro8a.pfb
+hvb NimbusSanL-Bold "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvb8a.pfb
+hvbo NimbusSanL-BoldItal "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvbo8a.pfb
+hv NimbusSanL-Regu "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvr8a.pfb
+hvo NimbusSanL-ReguItal "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvro8a.pfb
+pagd8r URWGothicL-Demi "TeXBase1Encoding ReEncodeFont" <8r.enc <uagd8a.pfb
+pagdo8r URWGothicL-DemiObli "TeXBase1Encoding ReEncodeFont" <8r.enc <uagdo8a.pfb
+pagk8r URWGothicL-Book "TeXBase1Encoding ReEncodeFont" <8r.enc <uagk8a.pfb
+pagko8r URWGothicL-BookObli "TeXBase1Encoding ReEncodeFont" <8r.enc <uagko8a.pfb
+pbkd8r URWBookmanL-DemiBold "TeXBase1Encoding ReEncodeFont" <8r.enc <ubkd8a.pfb
+pbkdi8r URWBookmanL-DemiBoldItal "TeXBase1Encoding ReEncodeFont" <8r.enc <ubkdi8a.pfb
+pbkdo8r URWBookmanL-DemiBold ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <ubkd8a.pfb
+pbkl8r URWBookmanL-Ligh "TeXBase1Encoding ReEncodeFont" <8r.enc <ubkl8a.pfb
+pbkli8r URWBookmanL-LighItal "TeXBase1Encoding ReEncodeFont" <8r.enc <ubkli8a.pfb
+pbklo8r URWBookmanL-Ligh ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <ubkl8a.pfb
+pcrb8r NimbusMonL-Bold "TeXBase1Encoding ReEncodeFont" <8r.enc <ucrb8a.pfb
+pcrb8y NimbusMonL-Bold "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <ucrb8a.pfb
+pcrbo8r NimbusMonL-BoldObli "TeXBase1Encoding ReEncodeFont" <8r.enc <ucrbo8a.pfb
+pcrbo8y NimbusMonL-BoldObli "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <ucrbo8a.pfb
+pcrr8r NimbusMonL-Regu "TeXBase1Encoding ReEncodeFont" <8r.enc <ucrr8a.pfb
+pcrr8rn NimbusMonL-Regu ".85 ExtendFont TeXBase1Encoding ReEncodeFont" <8r.enc <ucrr8a.pfb
+pcrr8y NimbusMonL-Regu "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <ucrr8a.pfb
+pcrro8r NimbusMonL-ReguObli "TeXBase1Encoding ReEncodeFont" <8r.enc <ucrro8a.pfb
+pcrro8y NimbusMonL-ReguObli "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <ucrro8a.pfb
+phvb8r NimbusSanL-Bold "TeXBase1Encoding ReEncodeFont" <8r.enc <uhvb8a.pfb
+phvb8rn NimbusSanL-BoldCond "TeXBase1Encoding ReEncodeFont" <8r.enc <uhvb8ac.pfb
+phvb8y NimbusSanL-Bold "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvb8a.pfb
+phvb8yn NimbusSanL-BoldCond "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvb8ac.pfb
+phvbo8r NimbusSanL-BoldItal "TeXBase1Encoding ReEncodeFont" <8r.enc <uhvbo8a.pfb
+phvbo8rn NimbusSanL-BoldCondItal-Narrow-BoldOblique "TeXBase1Encoding ReEncodeFont" <8r.enc <uhvbo8ac.pfb
+phvbo8y NimbusSanL-BoldItal "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvbo8a.pfb
+phvbo8yn NimbusSanL-BoldCondItal-Narrow-BoldOblique "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvbo8ac.pfb
+phvr8r NimbusSanL-Regu "TeXBase1Encoding ReEncodeFont" <8r.enc <uhvr8a.pfb
+phvr8rn NimbusSanL-ReguCond "TeXBase1Encoding ReEncodeFont" <8r.enc <uhvr8ac.pfb
+phvr8y NimbusSanL-Regu "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvr8a.pfb
+phvr8yn NimbusSanL-ReguCond "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvr8ac.pfb
+phvro8r NimbusSanL-ReguItal "TeXBase1Encoding ReEncodeFont" <8r.enc <uhvro8a.pfb
+phvro8rn NimbusSanL-ReguCondItal "TeXBase1Encoding ReEncodeFont" <8r.enc <uhvro8ac.pfb
+phvro8y NimbusSanL-ReguItal "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvro8a.pfb
+phvro8yn NimbusSanL-ReguCondItal "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <uhvro8ac.pfb
+pncb8r CenturySchL-Bold "TeXBase1Encoding ReEncodeFont" <8r.enc <uncb8a.pfb
+pncbi8r CenturySchL-BoldItal "TeXBase1Encoding ReEncodeFont" <8r.enc <uncbi8a.pfb
+pncbo8r CenturySchL-Bold ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <uncb8a.pfb
+pncr8r CenturySchL-Roma "TeXBase1Encoding ReEncodeFont" <8r.enc <uncr8a.pfb
+pncri8r CenturySchL-Ital "TeXBase1Encoding ReEncodeFont" <8r.enc <uncri8a.pfb
+pncro8r CenturySchL-Roma ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <uncr8a.pfb
+pplb8r URWPalladioL-Bold "TeXBase1Encoding ReEncodeFont" <8r.enc <uplb8a.pfb
+pplbi8r URWPalladioL-BoldItal "TeXBase1Encoding ReEncodeFont" <8r.enc <uplbi8a.pfb
+pplbo8r URWPalladioL-Bold ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <uplb8a.pfb
+pplbu8r URWPalladioL-BoldItal "-.1763 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <uplbi8a.pfb
+pplr8rn URWPalladioL-Roma ".82 ExtendFont TeXBase1Encoding ReEncodeFont" <8r.enc <uplr8a.pfb
+pplr8r URWPalladioL-Roma "TeXBase1Encoding ReEncodeFont" <8r.enc <uplr8a.pfb
+pplri8r URWPalladioL-Ital "TeXBase1Encoding ReEncodeFont" <8r.enc <uplri8a.pfb
+pplro8r URWPalladioL-Roma ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <uplr8a.pfb
+pplrr8re URWPalladioL-Roma "1.2 ExtendFont TeXBase1Encoding ReEncodeFont" <8r.enc <uplr8a.pfb
+pplru8r URWPalladioL-Ital "-.1763 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <uplri8a.pfb
+psyro StandardSymL ".167 SlantFont" <usyr.pfb
+psyr StandardSymL <usyr.pfb
+ptmb8r NimbusRomNo9L-Medi "TeXBase1Encoding ReEncodeFont" <8r.enc <utmb8a.pfb
+ptmb8y NimbusRomNo9L-Medi "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmb8a.pfb
+ptmbi8r NimbusRomNo9L-MediItal "TeXBase1Encoding ReEncodeFont" <8r.enc <utmbi8a.pfb
+ptmbi8y NimbusRomNo9L-MediItal "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmbi8a.pfb
+ptmbo8r NimbusRomNo9L-Medi ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <utmb8a.pfb
+ptmbo8y NimbusRomNo9L-Medi ".167 SlantFont TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmb8a.pfb
+ptmr8r NimbusRomNo9L-Regu "TeXBase1Encoding ReEncodeFont" <8r.enc <utmr8a.pfb
+ptmr8rn NimbusRomNo9L-Regu ".82 ExtendFont TeXBase1Encoding ReEncodeFont" <8r.enc <utmr8a.pfb
+ptmr8y NimbusRomNo9L-Regu "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmr8a.pfb
+ptmri8r NimbusRomNo9L-ReguItal "TeXBase1Encoding ReEncodeFont" <8r.enc <utmri8a.pfb
+ptmri8y NimbusRomNo9L-ReguItal "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmri8a.pfb
+ptmro8r NimbusRomNo9L-Regu ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <utmr8a.pfb
+ptmro8y NimbusRomNo9L-Regu ".167 SlantFont TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmr8a.pfb
+ptmrr8re NimbusRomNo9L-Regu "1.2 ExtendFont TeXBase1Encoding ReEncodeFont" <8r.enc <utmr8a.pfb
+pzcmi8r URWChanceryL-MediItal "TeXBase1Encoding ReEncodeFont" <8r.enc <uzcmi8a.pfb
+pzdr Dingbats <uzdr.pfb
+rpagdo URWGothicL-DemiObli "StandardEncoding ReEncodeFont" <8a.enc <uagdo8a.pfb
+rpagd URWGothicL-Demi "StandardEncoding ReEncodeFont" <8a.enc <uagd8a.pfb
+rpagko URWGothicL-BookObli "StandardEncoding ReEncodeFont" <8a.enc <uagko8a.pfb
+rpagk URWGothicL-Book "StandardEncoding ReEncodeFont" <8a.enc <uagk8a.pfb
+rpbkdi URWBookmanL-DemiBoldItal "StandardEncoding ReEncodeFont" <8a.enc <ubkdi8a.pfb
+rpbkd URWBookmanL-DemiBold "StandardEncoding ReEncodeFont" <8a.enc <ubkd8a.pfb
+rpbkli URWBookmanL-LighItal "StandardEncoding ReEncodeFont" <8a.enc <ubkli8a.pfb
+rpbkl URWBookmanL-Ligh "StandardEncoding ReEncodeFont" <8a.enc <ubkl8a.pfb
+rpcrb NimbusMonL-Bold "StandardEncoding ReEncodeFont" <8a.enc <ucrb8a.pfb
+rpcrbo NimbusMonL-BoldObli "StandardEncoding ReEncodeFont" <8a.enc <ucrbo8a.pfb
+rpcrr NimbusMonL-Regu "StandardEncoding ReEncodeFont" <8a.enc <ucrr8a.pfb
+rpcrro NimbusMonL-ReguObli "StandardEncoding ReEncodeFont" <8a.enc <ucrro8a.pfb
+rphvb NimbusSanL-Bold "StandardEncoding ReEncodeFont" <8a.enc <uhvb8a.pfb
+rphvbo NimbusSanL-BoldItal "StandardEncoding ReEncodeFont" <8a.enc <uhvbo8a.pfb
+rphvbon NimbusSanL-BoldItal ".82 ExtendFont StandardEncoding ReEncodeFont" <8a.enc <uhvbo8a.pfb
+rphvbrn NimbusSanL-Bold ".82 ExtendFont StandardEncoding ReEncodeFont" <8a.enc <uhvb8a.pfb
+rphvr NimbusSanL-Regu "StandardEncoding ReEncodeFont" <8a.enc <uhvr8a.pfb
+rphvro NimbusSanL-ReguItal "StandardEncoding ReEncodeFont" <8a.enc <uhvro8a.pfb
+rphvron NimbusSanL-ReguItal ".82 ExtendFont StandardEncoding ReEncodeFont" <8a.enc <uhvro8a.pfb
+rphvrrn NimbusSanL-Regu ".82 ExtendFont StandardEncoding ReEncodeFont" <8a.enc <uhvr8a.pfb
+rpncb CenturySchL-Bold "StandardEncoding ReEncodeFont" <8a.enc <uncb8a.pfb
+rpncbi CenturySchL-BoldItal "StandardEncoding ReEncodeFont" <8a.enc <uncbi8a.pfb
+rpncr CenturySchL-Roma "StandardEncoding ReEncodeFont" <8a.enc <uncr8a.pfb
+rpncri CenturySchL-Ital "StandardEncoding ReEncodeFont" <8a.enc <uncri8a.pfb
+rpplbi URWPalladioL-BoldItal "StandardEncoding ReEncodeFont" <8a.enc <uplbi8a.pfb
+rpplb URWPalladioL-Bold "StandardEncoding ReEncodeFont" <8a.enc <uplb8a.pfb
+rpplbu URWPalladioL-BoldItal "-.1763 SlantFont StandardEncoding ReEncodeFont" <8a.enc <uplbi8a.pfb
+rpplri URWPalladioL-Ital "StandardEncoding ReEncodeFont" <8a.enc <uplri8a.pfb
+rpplro URWPalladioL-Roma ".167 SlantFont StandardEncoding ReEncodeFont" <8a.enc <uplr8a.pfb
+rpplrre URWPalladioL-Roma "1.2 ExtendFont StandardEncoding ReEncodeFont" <8a.enc <uplr8a.pfb
+rpplrrn URWPalladioL-Roma ".82 ExtendFont StandardEncoding ReEncodeFont" <8a.enc <uplr8a.pfb
+rpplr URWPalladioL-Roma "StandardEncoding ReEncodeFont" <8a.enc <uplr8a.pfb
+rpplru URWPalladioL-Ital "-.1763 SlantFont StandardEncoding ReEncodeFont" <8a.enc <uplri8a.pfb
+rpsyro StandardSymL ".167 SlantFont" <usyr.pfb
+rpsyr StandardSymL <usyr.pfb
+rptmbi NimbusRomNo9L-MediItal "StandardEncoding ReEncodeFont" <8a.enc <utmbi8a.pfb
+rptmb NimbusRomNo9L-Medi "StandardEncoding ReEncodeFont" <8a.enc <utmb8a.pfb
+rptmbo NimbusRomNo9L-Medi ".167 SlantFont StandardEncoding ReEncodeFont" <8a.enc <utmb8a.pfb
+rptmri NimbusRomNo9L-ReguItal "StandardEncoding ReEncodeFont" <8a.enc <utmri8a.pfb
+rptmr NimbusRomNo9L-Regu "StandardEncoding ReEncodeFont" <8a.enc <utmr8a.pfb
+rptmro NimbusRomNo9L-Regu ".167 SlantFont StandardEncoding ReEncodeFont" <8a.enc <utmr8a.pfb
+rptmrre NimbusRomNo9L-Regu "1.2 ExtendFont StandardEncoding ReEncodeFont" <8a.enc <utmr8a.pfb
+rptmrrn NimbusRomNo9L-Regu ".82 ExtendFont StandardEncoding ReEncodeFont" <8a.enc <utmr8a.pfb
+rpxpplbi URWPalladioL-BoldItal "TeXBase1Encoding ReEncodeFont" <8r.enc <uplbi8a.pfb
+rpxpplbo URWPalladioL-Bold ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <uplb8a.pfb
+rpxpplb URWPalladioL-Bold "TeXBase1Encoding ReEncodeFont" <8r.enc <uplb8a.pfb
+rpxpplri URWPalladioL-Ital "TeXBase1Encoding ReEncodeFont" <8r.enc <uplri8a.pfb
+rpxpplro URWPalladioL-Roma ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <uplr8a.pfb
+rpxpplr URWPalladioL-Roma "TeXBase1Encoding ReEncodeFont" <8r.enc <uplr8a.pfb
+rpzcmi URWChanceryL-MediItal "StandardEncoding ReEncodeFont" <8a.enc <uzcmi8a.pfb
+rpzdr Dingbats <uzdr.pfb
+rtxphvb NimbusSanL-Bold "TeXBase1Encoding ReEncodeFont" <8r.enc <uhvb8a.pfb
+rtxphvbo NimbusSanL-Bold ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <uhvb8a.pfb
+rtxphvr NimbusSanL-Regu "TeXBase1Encoding ReEncodeFont" <8r.enc <uhvr8a.pfb
+rtxphvro NimbusSanL-Regu ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <uhvr8a.pfb
+rtxptmbi NimbusRomNo9L-MediItal "TeXBase1Encoding ReEncodeFont" <8r.enc <utmbi8a.pfb
+rtxptmb NimbusRomNo9L-Medi "TeXBase1Encoding ReEncodeFont" <8r.enc <utmb8a.pfb
+rtxptmbo NimbusRomNo9L-Medi ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <utmb8a.pfb
+rtxptmri NimbusRomNo9L-ReguItal "TeXBase1Encoding ReEncodeFont" <8r.enc <utmri8a.pfb
+rtxptmr NimbusRomNo9L-Regu "TeXBase1Encoding ReEncodeFont" <8r.enc <utmr8a.pfb
+rtxptmro NimbusRomNo9L-Regu ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <utmr8a.pfb
+sy StandardSymL <usyr.pfb
+tibi NimbusRomNo9L-MediItal "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmbi8a.pfb
+tib NimbusRomNo9L-Medi "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmb8a.pfb
+tibo NimbusRomNo9L-Medi ".167 SlantFont TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmb8a.pfb
+tii NimbusRomNo9L-ReguItal "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmri8a.pfb
+tio NimbusRomNo9L-Regu ".167 SlantFont TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmr8a.pfb
+tir NimbusRomNo9L-Regu "TeXnANSIEncoding ReEncodeFont" <texnansi.enc <utmr8a.pfb
+tmbi108r NimbusRomNo9L-MediItal "TeXBase1Encoding ReEncodeFont" <8r.enc <utmbi8a.pfb
+tmbo108r NimbusRomNo9L-Medi ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <utmb8a.pfb
+tmbu108r NimbusRomNo9L-MediItal "-.277 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <utmbi8a.pfb
+tmrb108r NimbusRomNo9L-Medi "TeXBase1Encoding ReEncodeFont" <8r.enc <utmb8a.pfb
+tmri108r NimbusRomNo9L-ReguItal "TeXBase1Encoding ReEncodeFont" <8r.enc <utmri8a.pfb
+tmrm108r NimbusRomNo9L-Regu "TeXBase1Encoding ReEncodeFont" <8r.enc <utmr8a.pfb
+tmro108r NimbusRomNo9L-Regu ".167 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <utmr8a.pfb
+tmui108r NimbusRomNo9L-ReguItal "-.277 SlantFont TeXBase1Encoding ReEncodeFont" <8r.enc <utmri8a.pfb
+zd Dingbats <uzdr.pfb

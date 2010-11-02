@@ -1,0 +1,5 @@
+Di 2. Nov 16:11:14 CET 2010
+updmap: This is updmap, version $Id: updmap 17423 2010-03-11 17:53:34Z karl $
+updmap: using transcript file `/srv/http/.texlive/texmf-var/web2c/updmap.log'
+updmap: initial config file is `/srv/http/.texlive/texmf-config/web2c/updmap.cfg'
+updmap: configuration (updmap.cfg) unchanged. Map files will not be recreated.
