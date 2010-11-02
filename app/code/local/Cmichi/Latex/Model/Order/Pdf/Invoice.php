@@ -17,12 +17,13 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 	// or you have to set the path here!
 	// Remember to use / (UNIX) or \ (Win)
 	#private $pdflatexPath = '/usr/texbin/pdflatex';
-	private $pdflatexPath = 'pdflatex';
+	private $pdflatexPath = '/usr/bin/pdflatex';
+	#private $pdflatexPath = 'pdflatex';
 
 
 	// if set to true the output is shown and no pdf is sent,
 	// see function getPdf() for details
-	private $debug = true;
+	private $debug = false;
 
 
 	/**
@@ -120,7 +121,7 @@ class Cmichi_Latex_Model_Order_Pdf_Invoice extends Mage_Sales_Model_Order_Pdf_Ab
 
 		// example: $cmd = '/usr/texbin/pdflatex -output-directory $tmpFolder $tmpFodler $filename.tex
 		$cmd = 	$this->pdflatexPath . ' -output-directory ' . $this->tmpFolder . ' ' . 
-				$this->tmpFolder . $this->filename . '.tex';
+			$this->tmpFolder . $this->filename . '.tex';
 		$this->log('executing: ' . $cmd);
 		$output = shell_exec($cmd);								
 		$this->log($output);
